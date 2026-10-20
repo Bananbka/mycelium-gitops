@@ -6,6 +6,8 @@ metadata:
     {{- include "clone-factory.labels" (dict "ctx" . "component" "celery-worker") | nindent 4 }}
 spec:
   replicas: {{ .Values.celeryWorker.replicas }}
+  # Seconds before a stalled rollout is reported as failed (Degraded in Argo CD).
+  progressDeadlineSeconds: {{ .Values.celeryWorker.progressDeadlineSeconds }}
   selector:
     matchLabels:
       {{- include "clone-factory.selectorLabels" (dict "ctx" . "component" "celery-worker") | nindent 6 }}

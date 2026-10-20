@@ -132,6 +132,7 @@ api:
 
 celeryWorker:
   replicas: 1
+  progressDeadlineSeconds: 600
   image:
     repository: clone-celery
     tag: "1.0.0"
