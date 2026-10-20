@@ -3,7 +3,7 @@
 Desired state of the clone-factory deployment on minikube; Argo CD applies it.
 
 ```
-bootstrap/root-app.yaml        App of Apps, the only object applied by hand
+bootstrap/root.yaml        App of Apps, the only object applied by hand
 argocd-apps/clone-factory.yaml Application for the chart (auto-sync)
 charts/clone-factory/          Helm chart from lab 4
   values-minikube.yaml         image tags and cluster-specific values
