@@ -5,6 +5,10 @@ metadata:
   name: {{ $name }}
   labels:
     {{- include "clone-factory.labels" (dict "ctx" . "component" "postgres") | nindent 4 }}
+  annotations:
+    # Argo CD: Postgres and its config come up first (wave -2), then the
+    # migration hook (wave -1), then everything else (wave 0).
+    argocd.argoproj.io/sync-wave: "-2"
 spec:
   replicas: {{ .Values.postgres.replicas }}
   strategy:
