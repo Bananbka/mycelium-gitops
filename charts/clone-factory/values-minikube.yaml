@@ -29,7 +29,7 @@ celeryWorker:
   progressDeadlineSeconds: 60
   image:
     repository: ghcr.io/bananbka/clone-celery
-    tag: "9.9.9"
+    tag: "1.2.0"
 
 celeryBeat:
   image:
