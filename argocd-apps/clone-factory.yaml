@@ -21,6 +21,6 @@ spec:
   syncPolicy:
     automated:
       prune: true
-      selfHeal: false   # step 6a: flipped to true in Git for the selfHeal demo
+      selfHeal: true
     syncOptions:
       - CreateNamespace=true
