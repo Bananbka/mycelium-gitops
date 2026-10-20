@@ -1,0 +1,35 @@
+# Desired state for the minikube cluster. Argo CD reads this file from Git;
+# change the image tags here (and only here) to release a new version.
+imagePullPolicy: IfNotPresent
+
+secret:
+  # Created out of band (see README); no credentials live in Git.
+  existingSecret: clone-factory-secret
+
+migrate:
+  argoHook: true
+
+preUpgradeCheck:
+  enabled: false
+
+# Same image as the Compose stack; quay.io still publishes it, unlike Docker Hub.
+minio:
+  image:
+    repository: quay.io/minio/minio
+    tag: RELEASE.2025-04-22T22-12-26Z
+
+api:
+  replicas: 2
+  image:
+    repository: ghcr.io/bananbka/clone-api
+    tag: "1.1.0"
+
+celeryWorker:
+  image:
+    repository: ghcr.io/bananbka/clone-celery
+    tag: "1.1.0"
+
+celeryBeat:
+  image:
+    repository: ghcr.io/bananbka/clone-celery
+    tag: "1.1.0"

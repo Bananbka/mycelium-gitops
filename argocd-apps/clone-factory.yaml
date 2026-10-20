@@ -1,0 +1,26 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: clone-factory
+  namespace: argocd
+  finalizers:
+    - resources-finalizer.argocd.argoproj.io
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/Bananbka/mycelium-gitops.git
+    targetRevision: main
+    path: charts/clone-factory
+    helm:
+      releaseName: clone-factory
+      valueFiles:
+        - values-minikube.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: clone-gitops
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: false   # step 6a: flipped to true in Git for the selfHeal demo
+    syncOptions:
+      - CreateNamespace=true
