@@ -28,7 +28,7 @@ api:
 celeryWorker:
   image:
     repository: ghcr.io/bananbka/clone-celery
-    tag: "1.2.0"
+    tag: "9.9.9"
 
 celeryBeat:
   image:
