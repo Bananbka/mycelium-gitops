@@ -12,11 +12,12 @@ migrate:
 preUpgradeCheck:
   enabled: false
 
-# Same image as the Compose stack; quay.io still publishes it, unlike Docker Hub.
+# Upstream registries no longer serve minio/minio, so a copy of the image used
+# in labs 3-4 (minio-local:lab, id 14cea493d9a3) is published to GHCR.
 minio:
   image:
-    repository: quay.io/minio/minio
-    tag: RELEASE.2025-04-22T22-12-26Z
+    repository: ghcr.io/bananbka/clone-minio
+    tag: "14cea493"
 
 api:
   replicas: 2
