@@ -52,7 +52,7 @@ api:
     tag: "1.6.0"
   env:
     - name: FAIL_RATE
-      value: "0.5"
+      value: "0"
   # Smaller than the chart defaults so five replicas plus a canary pod fit
   # into the ~7.5 GB minikube node.
   resources:
