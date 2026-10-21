@@ -108,9 +108,23 @@ migrate:
 rollout:
   enabled: false
   strategy: {}
+  # Success-rate gate (Prometheus) used by an `analysis` step in the strategy.
+  analysis:
+    enabled: false
+    prometheusAddress: http://kps-prometheus.monitoring:9090
+    selector: 'namespace="clone-gitops"'
+
+# Observability: ServiceMonitor, Grafana dashboard ConfigMap and alert rule.
+metrics:
+  enabled: false
+  path: /metrics
+  alerts:
+    enabled: false
 
 api:
   replicas: 2
+  # Extra environment variables, e.g. FAIL_RATE for fault injection.
+  env: []
   # tag falls back to the chart's appVersion when left empty
   image:
     repository: clone-api

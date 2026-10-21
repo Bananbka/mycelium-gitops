@@ -35,6 +35,10 @@ spec:
                 name: {{ include "clone-factory.configName" . }}
             - secretRef:
                 name: {{ include "clone-factory.secretName" . }}
+          {{- with .Values.api.env }}
+          env:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
           lifecycle:
             # A terminating pod keeps serving for a few seconds while the
             # Service and kube-proxy stop routing to it, so no request lands

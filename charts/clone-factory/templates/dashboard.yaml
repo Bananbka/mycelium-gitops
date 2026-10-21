@@ -1,0 +1,11 @@
+{{- if .Values.metrics.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "clone-factory.fullname" . }}-dashboard
+  labels:
+    grafana_dashboard: "1"
+data:
+  clone-factory.json: |-
+{{ .Files.Get "dashboards/clone-factory.json" | indent 4 }}
+{{- end }}
