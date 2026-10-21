@@ -23,19 +23,26 @@ minio:
 # Grafana dashboard ConfigMap (picked up by the Grafana sidecar).
 metrics:
   enabled: true
+  alerts:
+    enabled: true      # PrometheusRule: >5% 5xx for 1m
 
-# Progressive delivery: canary on 5 replicas (20% = 1 pod). The manual pause
-# waits for `kubectl argo rollouts promote`; the others continue on a timer.
+# Progressive delivery: canary on 5 replicas (20% = 1 pod). No manual pause:
+# after 20% the success-rate AnalysisRun decides whether to continue or abort.
 rollout:
   enabled: true
+  analysis:
+    enabled: true
+    prometheusAddress: http://kps-prometheus.monitoring:9090
+    selector: 'namespace="clone-gitops"'
   strategy:
     canary:
       steps:
         - setWeight: 20
-        - pause: {}
+        - pause: {duration: 30s}         # let the metrics accumulate
+        - analysis:
+            templates:
+              - templateName: clone-factory-success-rate
         - setWeight: 60
-        - pause: {duration: 30s}
-        - setWeight: 80
         - pause: {duration: 30s}
 
 api:
