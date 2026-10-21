@@ -26,8 +26,9 @@ metrics:
   alerts:
     enabled: true      # PrometheusRule: >5% 5xx for 1m
 
-# Progressive delivery: canary on 5 replicas (20% = 1 pod). No manual pause:
-# after 20% the success-rate AnalysisRun decides whether to continue or abort.
+# Progressive delivery: canary on 5 replicas (20% = 1 pod). A manual pause lets a
+# human look at the canary; after `promote` the success-rate AnalysisRun decides
+# whether to continue or abort.
 rollout:
   enabled: true
   analysis:
@@ -38,7 +39,7 @@ rollout:
     canary:
       steps:
         - setWeight: 20
-        - pause: {duration: 30s}         # let the metrics accumulate
+        - pause: {}                      # manual gate: check the canary, then promote
         - analysis:
             templates:
               - templateName: clone-factory-success-rate
