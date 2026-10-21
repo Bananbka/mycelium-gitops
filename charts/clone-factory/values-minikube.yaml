@@ -37,7 +37,7 @@ api:
   replicas: 5
   image:
     repository: ghcr.io/bananbka/clone-api
-    tag: "1.4.0"
+    tag: "1.3.0"
   # Smaller than the chart defaults so five replicas plus a canary pod fit
   # into the ~7.5 GB minikube node.
   resources:
