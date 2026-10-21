@@ -21,7 +21,7 @@ spec:
   syncPolicy:
     automated:
       prune: true
-      selfHeal: true
+      selfHeal: false
     # If the app syncs before the Rollout CRD exists, try again instead of failing.
     retry:
       limit: 5
