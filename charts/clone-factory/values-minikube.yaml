@@ -19,11 +19,30 @@ minio:
     repository: ghcr.io/bananbka/clone-minio
     tag: "14cea493"
 
+# Progressive delivery: canary on 5 replicas (20% = 1 pod). The manual pause
+# waits for `kubectl argo rollouts promote`; the others continue on a timer.
+rollout:
+  enabled: true
+  strategy:
+    canary:
+      steps:
+        - setWeight: 20
+        - pause: {}
+        - setWeight: 60
+        - pause: {duration: 30s}
+        - setWeight: 80
+        - pause: {duration: 30s}
+
 api:
-  replicas: 2
+  replicas: 5
   image:
     repository: ghcr.io/bananbka/clone-api
     tag: "1.2.0"
+  # Smaller than the chart defaults so five replicas plus a canary pod fit
+  # into the ~7.5 GB minikube node.
+  resources:
+    requests: {cpu: 50m, memory: 96Mi}
+    limits: {cpu: 300m, memory: 256Mi}
 
 celeryWorker:
   progressDeadlineSeconds: 60

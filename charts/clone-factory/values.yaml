@@ -103,6 +103,12 @@ migrate:
     requests: {cpu: 50m, memory: 128Mi}
     limits: {cpu: 500m, memory: 384Mi}
 
+# Progressive delivery for the API: when enabled, an Argo Rollouts Rollout
+# replaces the api Deployment. strategy is copied into spec.strategy as is.
+rollout:
+  enabled: false
+  strategy: {}
+
 api:
   replicas: 2
   # tag falls back to the chart's appVersion when left empty
