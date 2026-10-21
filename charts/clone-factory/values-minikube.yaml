@@ -19,6 +19,11 @@ minio:
     repository: ghcr.io/bananbka/clone-minio
     tag: "14cea493"
 
+# Observability: ServiceMonitor (scraped by kube-prometheus-stack) and the
+# Grafana dashboard ConfigMap (picked up by the Grafana sidecar).
+metrics:
+  enabled: true
+
 # Progressive delivery: canary on 5 replicas (20% = 1 pod). The manual pause
 # waits for `kubectl argo rollouts promote`; the others continue on a timer.
 rollout:
