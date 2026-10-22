@@ -49,7 +49,7 @@ api:
   replicas: 5
   image:
     repository: ghcr.io/bananbka/clone-api
-    tag: "1.7.0"
+    tag: "1.8.0"
   env:
     - name: FAIL_RATE
       value: "0"
