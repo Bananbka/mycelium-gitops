@@ -11,7 +11,7 @@ spec:
     - name: success-rate
       interval: 30s
       count: 4
-      failureLimit: 1
+      failureLimit: 0
       successCondition: result[0] >= 0.95
       provider:
         prometheus:
